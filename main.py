@@ -1,6 +1,7 @@
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 import csv
+import sys
 
 # Prompt the user to select a file and return its path.
 def get_file_path():
@@ -15,7 +16,14 @@ def get_file_path():
     root.destroy()  # Destroy the hidden root window after use
     return file_path
 
-filename = get_file_path()
+
+# Check if a filename is provided as a command-line argument
+if len(sys.argv) > 1:
+    filename = sys.argv[1]
+    if filename == '--tk':
+        filename = get_file_path()
+else:
+    filename = input('Name of CSV file: ')
 
 do_header = input('Bold header? (y/n): ')
 do_first = input('Bold first column? (y/n): ')

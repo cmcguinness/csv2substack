@@ -2,8 +2,14 @@
 
 This is a small python script that converts a CSV file into a Latex array that can be used in Substack to embed tabular data.
 
-It starts with a TKinter GUI that allows you to select the CSV file, 
-then it asks you some formatting questions, and then finally 
-it outputs the Latex array code to the console.
+You run it via:
 
-There is no genius to this.
+
+* `python csv2substack.py` prompts you for the csv filename on command line.
+* `python csv2substack.py -tk`  pops up a dialog window to get the file name
+* `python csv2substack.py filename` just uses the name from the command line.
+
+It just generates output to stdout, so use redirection if you want it to go somewhere else.
+
+
+
