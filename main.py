@@ -25,6 +25,11 @@ if len(sys.argv) > 1:
 else:
     filename = input('Name of CSV file: ')
 
+if filename.startswith("'") or filename.startswith('"'):
+    filename = filename[1:-1]  # Remove quotes if present
+if filename.endswith("'") or filename.endswith('"'):
+    filename = filename[:-1]  # Remove quotes if present
+
 do_header = input('Bold header? (y/n): ')
 do_first = input('Bold first column? (y/n): ')
 do_grid = input('Cell Grid (y/n): ')
@@ -56,9 +61,11 @@ with open(filename, 'r') as file:
 
         if rnum == 0 and do_header == 'y':
             for col in row:
+                col = col.strip().replace('$', '\\$').replace('%', '\\%').replace('_', '\\_')
                 tex += f'\\textbf{{{col}}} & '
         else:
             for i,col in enumerate(row):
+                col = col.strip().replace('$', '\\$').replace('%', '\\%').replace('_', '\\_')
                 if i == 0 and do_first == 'y':
                     tex += f'\\textbf{{{col}}} & '
                 else:
