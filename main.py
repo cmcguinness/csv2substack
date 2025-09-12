@@ -1,5 +1,3 @@
-from tkinter import Tk
-from tkinter.filedialog import askopenfilename
 import argparse
 import csv
 import sys
@@ -7,6 +5,13 @@ import os
 
 # Prompt the user to select a file and return its path.
 def get_file_path():
+    try:
+        from tkinter import Tk
+        from tkinter.filedialog import askopenfilename
+    except Exception as e:
+        print("Error: GUI file dialog requires Tkinter. Use --help for CLI options or install Tkinter.")
+        sys.exit(1)
+
     root = Tk()
     root.withdraw()  # Hide the Tkinter root window
     root.title("CSV To Make Into Substack Compatible Tex Table")  # Set the title of the file dialog window
@@ -130,7 +135,10 @@ def escape_latex_chars(text):
     text = text.replace('^', '\\textasciicircum{}')
     text = text.replace('_', '\\_')
     text = text.replace('~', '\\textasciitilde{}')
-    
+
+    # Fix brace escaping inside the inserted backslash macro
+    text = text.replace('\\textbackslash\\{\\}', '\\textbackslash{}')
+
     return text
 
 
